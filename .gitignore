@@ -10,6 +10,12 @@
 # dependencies
 /node_modules
 
+# Firebase Hosting
+/.firebase
+.firebaserc
+firebase-debug.log
+firebase.json
+
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
