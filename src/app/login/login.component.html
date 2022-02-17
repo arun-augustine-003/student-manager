@@ -1,0 +1,60 @@
+<div class="header-main">
+  <form [formGroup]="loginForm" class="loginForm1">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="float-input">Email *</label>
+      <input
+        id="float-input"
+        type="email"
+        class="form-control"
+        pInputText
+        aria-describedby="emailHelp"
+        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+        formControlName="email"
+      />
+      <small
+        id="float-input"
+        class="p-error"
+        severity="error"
+        *ngIf="
+          !loginForm.controls['email'].valid &&
+          loginForm.controls['email'].dirty
+        "
+        >Valid Email is Required</small
+      >
+    </div>
+    <br />
+    <div class="form-group green-border-focus">
+      <label for="float-input">Password *</label>
+      <input
+        id="float-input-2"
+        type="password"
+        class="form-control"
+        aria-describedby="emailHelp"
+        pInputText
+        formControlName="password"
+      />
+      <small
+        id="float-input-2"
+        class="p-error"
+        severity="error"
+        *ngIf="
+          !loginForm.controls['password'].valid &&
+          loginForm.controls['password'].dirty
+        "
+        >Valid Password is Required</small
+      >
+    </div>
+    <br />
+    <div>
+      <button
+        pButton
+        type="submit"
+        label="Sign in"
+        [disabled]="!loginForm.valid"
+        (click)="login()"
+        class="ui-button-raised ui-button-primary login-btn"
+      ></button>
+    </div>
+  </form>
+</div>

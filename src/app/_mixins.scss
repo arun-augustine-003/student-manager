@@ -1,0 +1,51 @@
+/*Mixin Declarations [Re-Usable Components] */
+@mixin flexcenter-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flexcenter-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@mixin font-styler($family: "", $size, $weight, $color) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+@mixin margin-setter($mt: "", $mb: "", $mr: "", $ml: "") {
+  margin-top: $mt;
+  margin-bottom: $mb;
+  margin-right: $mr;
+  margin-left: $ml;
+}
+@mixin color-swapper($normal-bg-color, $text-color, $new-bg-color) {
+  background-color: $normal-bg-color;
+  color: $text-color;
+  border: 2px solid $normal-bg-color;
+  transition: 0.2s;
+  &:hover {
+    background-color: $new-bg-color;
+    color: $text-color;
+    border: 2px solid $new-bg-color;
+  }
+}
+@mixin color-swapper-cancel-button(
+  $normal-bg-color,
+  $text-color,
+  $normal-outline-color,
+  $new-bg-color
+) {
+  background-color: $normal-bg-color;
+  color: $text-color;
+  border: 3px solid $normal-outline-color;
+  &:hover {
+    background-color: $new-bg-color;
+    color: $text-color;
+    border: 2px solid $new-bg-color;
+  }
+}

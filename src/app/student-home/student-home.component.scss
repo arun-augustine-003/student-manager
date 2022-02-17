@@ -1,0 +1,151 @@
+@import "./../variables";
+@import "./../mixins";
+
+.header {
+  @include flexcenter-row();
+  justify-content: space-between;
+  align-items: flex-start;
+  @include margin-setter(29px, 25px, null, null);
+  padding: 0px 40px;
+  .header-title {
+    h1 {
+      text-align: left;
+      @include font-styler("Roboto", 25px, 700, $purple-primary);
+    }
+  }
+  .add-btn {
+    padding: 12px 75px;
+    @include color-swapper($blue-primary, $white-primary, $blue-dark);
+    i {
+      @include color-swapper($blue-primary, $white-primary, $blue-dark);
+    }
+  }
+  .delete-btn {
+    padding: 12px 75px;
+    @include color-swapper($orange-primary, $white-primary, $orange-dark);
+    i {
+      @include color-swapper($orange-primary, $white-primary, $orange-dark);
+    }
+  }
+}
+:host ::ng-deep .p-dialog-header-close-icon {
+  display: none;
+}
+.dialog-header-pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  @include margin-setter(-10px, null, 11px, null);
+}
+.studentForm1 {
+  @include flexcenter-row();
+  justify-content: space-around;
+  .form-group {
+    > input {
+      width: 300px;
+    }
+    > label,
+    div > label {
+      @include font-styler("Roboto", 14px, 400, $black-text);
+    }
+    .dateOfBirth {
+      @include flexcenter-column();
+      align-items: flex-start;
+
+      .p-calendar-w-btn.p-inputtext {
+        width: 400px;
+      }
+    }
+    .finishReview {
+      @include flexcenter-column();
+      align-items: flex-start;
+      &-1 {
+        @include flexcenter-row();
+        justify-content: space-between;
+        .finishReviewNo {
+          margin-left: 67px;
+        }
+      }
+    }
+    .teachers {
+      @include flexcenter-column();
+      align-items: flex-start;
+    }
+    .ratings {
+      @include flexcenter-column();
+      align-items: flex-start;
+    }
+  }
+}
+:host ::ng-deep .p-inputtext.p-component {
+  width: 260px;
+}
+:host ::ng-deep .p-dropdown.p-component,
+:host ::ng-deep .p-multiselect.p-component {
+  width: 300px;
+}
+:host ::ng-deep .p-dialog-footer {
+  > .add-btn-2 {
+    margin-left: -5%;
+  }
+  padding: 30px;
+  padding-top: 10px;
+  @include flexcenter-row();
+  justify-content: space-evenly;
+}
+.add-btn-2 {
+  padding: 12px 100px;
+  @include color-swapper($blue-primary, $white-primary, $blue-dark);
+}
+.cancel-btn {
+  padding: 12px 100px;
+  @include color-swapper-cancel-button(
+    $white-primary,
+    $grey-text-cancel,
+    $grey-text-outline,
+    $white-bg
+  );
+}
+.studentViewTable {
+  border-collapse: separate;
+  td {
+    border: 1px solid #fff;
+    @include font-styler("Roboto", 16px, 500, $text-dark);
+    padding: 0.9rem 1rem;
+  }
+  td:nth-child(4) {
+    border-right: 150px solid transparent;
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+  }
+  .studentViewName {
+    @include flexcenter-row();
+    justify-content: left;
+    @include margin-setter(10px, null, null, null);
+    h1 {
+      @include font-styler("Roboto", 16px, 500, $blue-primary);
+    }
+  }
+  .studentViewAddress {
+    white-space: nowrap;
+  }
+  .propic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    @include margin-setter(-10px, null, 11px, null);
+  }
+}
+.studentViewTableHeader {
+  border-collapse: separate;
+  th {
+    @include font-styler("Roboto", 12px, 500, $grey-text);
+  }
+  th:nth-child(4) {
+    border-right: 150px solid $white-bg;
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+  }
+}

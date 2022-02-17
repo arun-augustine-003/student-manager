@@ -1,0 +1,23 @@
+<div class="main-header">
+  <div class="main-header-logo">
+    <i class="fas fa-graduation-cap"></i>
+    <h1>Student Management</h1>
+  </div>
+  <div *ngIf="isProfileVisible" class="main-header-user-main">
+    <div class="main-header-user-main-logout">
+      <i class="fas fa-power-off" routerLink="/login"></i>
+      <p class="main-header-user-main-logout-text">Logout</p>
+    </div>
+    <div class="main-header-user-main-search">
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="main-header-user-main-details">
+      <p class="main-header-user-main-details-name">John Doe</p>
+      <img
+        src="../../assets/user2.jpg"
+        alt="user"
+        class="main-header-user-main-details-pic"
+      />
+    </div>
+  </div>
+</div>

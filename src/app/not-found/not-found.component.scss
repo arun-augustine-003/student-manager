@@ -1,0 +1,16 @@
+@import "./../variables";
+@import "./../mixins";
+
+.bodybg-color {
+  background-color: #ccc;
+}
+.content-block {
+  @include flexcenter-column();
+}
+.headline {
+  text-align: center;
+}
+a {
+  @include flexcenter-column();
+  color: $grey-primary;
+}

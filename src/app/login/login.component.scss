@@ -1,0 +1,32 @@
+@import "./../variables";
+@import "./../mixins";
+
+.header-main {
+  @include flexcenter-column();
+  background-color: $blue-primary;
+}
+.loginForm1 {
+  @include margin-setter(100px, null, null, null);
+  padding: 30px;
+  @include flexcenter-column();
+  background-color: $white-primary;
+  h2 {
+    @include font-styler("Roboto", 24px, 700, $text-primary);
+  }
+  .form-group {
+    > label {
+      @include font-styler("Roboto", 14px, 500, $black-primary);
+    }
+  }
+}
+
+:host ::ng-deep .p-button {
+  background-color: $blue-primary;
+}
+:host ::ng-deep .p-button-label {
+  color: $white-primary;
+}
+.login-btn {
+  padding: 12px 75px;
+  @include color-swapper($blue-primary, $white-primary, $blue-dark);
+}

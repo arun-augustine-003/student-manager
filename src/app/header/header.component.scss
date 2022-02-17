@@ -1,0 +1,79 @@
+@import "./../variables";
+@import "./../mixins";
+
+.main-header {
+  @include flexcenter-row();
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: $blue-primary;
+  color: $white-primary;
+  padding: 13px 40px;
+  &-logo {
+    > * {
+      flex: 1 1 50%;
+    }
+    @include flexcenter-row();
+    justify-content: left;
+    background-color: $blue-primary;
+    @include margin-setter(null, null, null, null);
+    h1 {
+      inline-size: 150px;
+      @include font-styler("Montserrat", 14px, 700, $white-primary);
+      @include margin-setter(null, null, null, -20px);
+    }
+    i {
+      @include font-styler(null, 54px, 700, $white-primary);
+      &:hover {
+        color: turquoise;
+        cursor: pointer;
+      }
+    }
+  }
+  &-user-main {
+    @include flexcenter-row();
+    @include margin-setter(null, null, null, null);
+    &-logout {
+      @include flexcenter-row();
+      @include margin-setter(null, null, null, -50px);
+      i {
+        cursor: pointer;
+        @include font-styler(null, 24px, 700, $white-primary);
+        &:hover {
+          color: turquoise;
+        }
+      }
+      p {
+        @include font-styler("Roboto", 16px, 400, $white-primary);
+        @include margin-setter(10px, null, null, 10px);
+      }
+    }
+    &-search {
+      @include flexcenter-row();
+      @include margin-setter(null, null, null, 50px);
+      i {
+        @include font-styler(null, 24px, 700, $white-primary);
+        &:hover {
+          color: turquoise;
+        }
+      }
+    }
+    &-details {
+      @include flexcenter-row();
+      @include margin-setter(10px, null, null, 30px);
+      &-name {
+        @include font-styler("Roboto", 16px, 400, $white-primary);
+        white-space: nowrap;
+      }
+      &-pic {
+        display: inline-block;
+        width: 43px;
+        height: 43px;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        @include margin-setter(-10%, null, null, 10%);
+      }
+    }
+  }
+}
