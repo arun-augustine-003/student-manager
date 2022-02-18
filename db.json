@@ -5,15 +5,15 @@
       "imgUrl": "assets/student-1.jpg",
       "name": "Kathy",
       "surname": "Grand",
-      "dateOfBirth": "2004-06-13",
+      "dateOfBirth": "2022-02-01",
       "email": "katie.grand@gmail.com",
       "phone": "917. 929. 934. 54",
-      "address": "71 Stanley Road London W64 5YU",
+      "address": "72 Stanley Road London W64 5YU",
       "teacherIDs": [
         "T1",
         "T4"
       ],
-      "specialization": "Marketing",
+      "specialization": "Marketing2",
       "rating": "A",
       "finishReview": "Yes"
     },
@@ -35,15 +35,16 @@
     },
     {
       "id": 3,
+      "imgUrl": "assets/student-3.jpg",
       "name": "Campbell",
       "surname": "Hall",
-      "imgUrl": "assets/student-3.jpg",
       "dateOfBirth": "2002-06-13",
       "email": "katie.grand@gmail.com",
       "phone": "917. 929. 934. 54",
       "address": "71 Stanley Road London W64 5YU",
       "teacherIDs": [
-        "T7"
+        "T7",
+        "T2"
       ],
       "specialization": "Marketing",
       "rating": "B",
@@ -54,7 +55,7 @@
       "imgUrl": "assets/student-4.jpg",
       "name": "Andrew",
       "surname": "Bourne",
-      "dateOfBirth": "2006-06-13",
+      "dateOfBirth": "2006-06-14",
       "email": "katie.grand@gmail.com",
       "phone": "917. 929. 934. 54",
       "address": "71 Stanley Road London W64 5YU",
@@ -63,13 +64,13 @@
       ],
       "specialization": "Graphic Designer",
       "rating": "B",
-      "finishReview": "Yes"
+      "finishReview": "No"
     },
     {
       "id": 5,
+      "imgUrl": "assets/student-5.jpg",
       "name": "Nicola",
       "surname": "Weston",
-      "imgUrl": "assets/student-5.jpg",
       "dateOfBirth": "2002-06-13",
       "email": "katie.grand@gmail.com",
       "phone": "917. 929. 934. 54",
@@ -79,23 +80,7 @@
       ],
       "specialization": "Graphic Designer",
       "rating": "C",
-      "finishReview": "Yes"
-    },
-    {
-      "id": 6,
-      "imgUrl": "assets/student-4.jpg",
-      "name": "Arun",
-      "surname": "Augustine",
-      "dateOfBirth": "2022-02-02",
-      "email": "arunagu@gmail.com",
-      "phone": "9656666690",
-      "address": "123 SF CA",
-      "teacherIDs": [
-        "T6"
-      ],
-      "specialization": "Web Dev",
-      "rating": "B",
-      "finishReview": "Yes"
+      "finishReview": "No"
     }
   ],
   "teachers": [

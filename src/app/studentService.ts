@@ -18,6 +18,7 @@ export class StudentService {
       })
     );
   }
+
   getTeachers() {
     return this.http.get<any>('http://localhost:3002/teachers/').pipe(
       map((res: any) => {
@@ -25,6 +26,7 @@ export class StudentService {
       })
     );
   }
+
   deleteStudent(id: number) {
     return this.http.delete<any>('http://localhost:3002/students/' + id).pipe(
       map((res: any) => {
@@ -33,7 +35,7 @@ export class StudentService {
     );
   }
 
-  postStudent(data: Student) {
+  addStudent(data: Student) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -43,25 +45,18 @@ export class StudentService {
       .post<any>('http://localhost:3002/students/', data, httpOptions)
       .pipe(catchError(this.handleError));
   }
-  // updateStudent(data: Student) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   };
-  //   return this.http
-  //     .put<any>('http://localhost:3002/students/' + data.id, data, httpOptions)
-  //     .pipe(catchError(this.handleError));
-  // }
-  updateStudent(data: Student, id: number) {
+
+  updateStudent(data: Student) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
     return this.http
-      .put<any>('http://localhost:3002/students/' + id, data)
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
+      .put<any>('http://localhost:3002/students/' + data.id, data, httpOptions)
+      .pipe(catchError(this.handleError));
   }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

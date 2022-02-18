@@ -4,22 +4,22 @@
   </div>
   <div class="header-button">
     <button
-      *ngIf="!enableDelete"
+      *ngIf="!displayDelete"
       pButton
       type="submit"
       class="ui-button-raised ui-button-primary add-btn"
-      (click)="showAddStudentDialog()"
+      (click)="displayAddStudentModal()"
     >
       <i class="fal fa-plus"></i>
       Add Student
     </button>
 
     <button
-      *ngIf="enableDelete"
+      *ngIf="displayDelete"
       pButton
       type="submit"
       class="ui-button-raised ui-button-primary delete-btn"
-      (click)="deleteStudents()"
+      (click)="onDeleteStudents()"
     >
       <i class="fas fa-trash"></i>
       Delete
@@ -54,7 +54,7 @@
         <td>
           <p-tableCheckbox [value]="student"></p-tableCheckbox>
         </td>
-        <td (click)="editStudent(student)" class="studentViewName">
+        <td (click)="onClickStudent(student)" class="studentViewName">
           <img [src]="student.imgUrl" [alt]="student.imgUrl" class="propic" />
           <h1>{{ student.name }} {{ student.surname }}</h1>
         </td>
@@ -69,7 +69,7 @@
 </div>
 
 <p-dialog
-  [(visible)]="displayAddStudent"
+  [(visible)]="displayStudentModal"
   [modal]="true"
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"
@@ -84,7 +84,7 @@
     />
     {{ displayStudentHeader }}
   </p-header>
-  <hr />
+  <br />
   <form [formGroup]="studentForm" class="studentForm1">
     <div class="form-group form-group-1">
       <label for="float-input">Name</label>
@@ -157,6 +157,16 @@
           [virtualScroll]="true"
           itemSize="30"
         ></p-multiSelect>
+        <small
+          id="float-input"
+          class="p-error"
+          severity="error"
+          *ngIf="
+            !studentForm.controls['teachers'].valid &&
+            studentForm.controls['teachers'].dirty
+          "
+          >Valid Teacher is Required</small
+        >
       </div>
       <br />
       <div class="ratings">
@@ -300,24 +310,24 @@
     </div>
   </form>
 
-  <hr />
+  <br />
   <ng-template pTemplate="footer">
     <button
       pButton
       type="button"
-      *ngIf="showAdd"
+      *ngIf="displayAdd"
       label="Add Student"
       [disabled]="!studentForm.valid"
-      (click)="onSubmitNewStudent()"
+      (click)="onAddStudent()"
       class="ui-button-raised ui-button-primary add-btn-2"
     ></button>
     <button
       pButton
       type="button"
-      *ngIf="showUpdate"
+      *ngIf="displayUpdate"
       label="Save"
       [disabled]="!studentForm.valid"
-      (click)="updateStudent()"
+      (click)="onUpdateStudent()"
       class="ui-button-raised ui-button-primary add-btn-2"
     ></button>
     <button

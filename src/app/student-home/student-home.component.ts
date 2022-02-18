@@ -3,12 +3,7 @@ import { Student } from '../student';
 import { StudentView } from '../studentView';
 import { Teacher } from '../teacher';
 import { Rating } from '../rating';
-import {
-  Validators,
-  FormControl,
-  FormGroup,
-  FormBuilder,
-} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { StudentService } from '../studentService';
 import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
@@ -21,42 +16,27 @@ import { DatePipe } from '@angular/common';
   providers: [MessageService],
 })
 export class StudentHomeComponent implements OnInit {
-  showAdd!: boolean;
-  showUpdate!: boolean;
-
-  students: StudentView[];
-
-  selectedStudent: StudentView;
-  selectedStudents: StudentView[] = [];
-  selectedValue: string = 'No';
-
-  enableDelete: boolean = false;
-
-  displayAddStudent: boolean = false;
-
+  displayAdd!: boolean;
+  displayUpdate!: boolean;
+  displayDelete: boolean = false;
+  displayStudentModal: boolean = false;
   displayStudentImage: boolean = false;
-  imgSrc: string = '';
 
+  imgSrc: string = '';
   displayStudentHeader: string = '';
 
-  date: Date;
   maxDate: Date;
-
-  teachers: Teacher[];
-  selectedTeachers: Teacher[];
-
-  ratings: Rating[];
-  selectedRating: Rating[];
 
   studentForm: FormGroup;
 
-  showAddStudentDialog() {
-    this.displayAddStudent = true;
-    this.displayStudentImage = false;
-    this.showAdd = true;
-    this.showUpdate = false;
-    this.displayStudentHeader = 'Add Student';
-  }
+  students: StudentView[];
+  teachers: Teacher[];
+  ratings: Rating[];
+
+  selectedStudent: StudentView;
+  selectedStudents: StudentView[] = [];
+  selectedTeachers: Teacher[];
+  selectedRating: Rating[];
 
   constructor(
     private fb: FormBuilder,
@@ -76,37 +56,15 @@ export class StudentHomeComponent implements OnInit {
 
   ngOnInit() {
     document.body.style.backgroundColor = 'white';
-
     this.initHeader();
     this.fetchTeachers();
     this.fetchData();
-
-    let today = new Date();
-    let month = today.getMonth();
-    let year = today.getFullYear();
-
-    let nextMonth = month === 11 ? 0 : month;
-    let nextYear = nextMonth === 0 ? year + 1 : year;
-
     this.maxDate = new Date();
-    this.maxDate.setMonth(nextMonth);
-    this.maxDate.setFullYear(nextYear);
+    this.initStudentForm();
+  }
 
-    this.studentForm = this.fb.group({
-      name: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      phone: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(10)]),
-      ],
-      teachers: [''],
-      rating: ['', Validators.required],
-      surname: ['', Validators.required],
-      email: ['', Validators.required],
-      address: ['', Validators.required],
-      specialization: ['', Validators.required],
-      finishReview: ['', Validators.required],
-    });
+  initHeader() {
+    this.dataService.setProfileVisibility(true);
   }
 
   fetchTeachers() {
@@ -130,7 +88,25 @@ export class StudentHomeComponent implements OnInit {
     });
   }
 
-  onSubmitNewStudent() {
+  initStudentForm() {
+    this.studentForm = this.fb.group({
+      name: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      phone: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(10)]),
+      ],
+      teachers: ['', Validators.required],
+      rating: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', Validators.required],
+      address: ['', Validators.required],
+      specialization: ['', Validators.required],
+      finishReview: ['', Validators.required],
+    });
+  }
+
+  onAddStudent() {
     if (this.studentForm.valid) {
       let student: Student = {
         id: this.studentForm.value.length + 1,
@@ -149,9 +125,9 @@ export class StudentHomeComponent implements OnInit {
         rating: this.studentForm.value.rating,
         finishReview: this.studentForm.value.finishReview,
       };
-      this.studentService.postStudent(student).subscribe(
+      this.studentService.addStudent(student).subscribe(
         (res) => {
-          this.displayAddStudent = false;
+          this.displayStudentModal = false;
           this.messageService.add({
             severity: 'success',
             summary: 'Student Added Successfully',
@@ -172,10 +148,13 @@ export class StudentHomeComponent implements OnInit {
     }
   }
 
-  editStudent(student: StudentView) {
+  onClickStudent(student: StudentView) {
     this.selectedStudent = student;
-    this.displayAddStudent = this.displayStudentImage = this.showUpdate = true;
-    this.showAdd = false;
+    this.displayStudentModal =
+      this.displayStudentImage =
+      this.displayUpdate =
+        true;
+    this.displayAdd = false;
     this.imgSrc = student.imgUrl;
     this.displayStudentHeader = student.fullname;
 
@@ -195,7 +174,7 @@ export class StudentHomeComponent implements OnInit {
     });
   }
 
-  updateStudent() {
+  onUpdateStudent() {
     const formValue = this.studentForm.value;
     let student: Student = {
       id: this.selectedStudent.id,
@@ -211,9 +190,9 @@ export class StudentHomeComponent implements OnInit {
       rating: formValue.rating,
       finishReview: formValue.finishReview,
     };
-    this.studentService.updateStudent(student, student.id).subscribe(
+    this.studentService.updateStudent(student).subscribe(
       (res) => {
-        this.displayAddStudent = false;
+        this.displayStudentModal = false;
         this.messageService.add({
           severity: 'success',
           summary: 'Student Updated Successfully',
@@ -223,7 +202,7 @@ export class StudentHomeComponent implements OnInit {
         this.fetchData();
       },
       (err) => {
-        this.displayAddStudent = false;
+        this.displayStudentModal = false;
         this.messageService.add({
           severity: 'error',
           summary: 'Something went wrong',
@@ -234,44 +213,7 @@ export class StudentHomeComponent implements OnInit {
     );
   }
 
-  cancelStudent() {
-    this.displayAddStudent = false;
-    this.studentForm.reset();
-  }
-
-  ageCalculator(dateOfBirth: string) {
-    let age = 0;
-    if (dateOfBirth) {
-      const convertAge = new Date(dateOfBirth);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
-      return age;
-    }
-    return age;
-  }
-
-  getTeacherByIds(teacherIDs: string[]): string[] {
-    let teachers1: string[] = [];
-    for (let i = 0; i < teacherIDs.length; i++) {
-      let teachersFound = this.teachers.find((t) => t.id == teacherIDs[i]);
-      teachers1.push(teachersFound.name);
-    }
-    return teachers1;
-  }
-
-  initHeader() {
-    this.dataService.setProfileVisibility(true);
-  }
-
-  enableDeletion(): void {
-    if (this.selectedStudents.length > 0) {
-      this.enableDelete = true;
-    } else {
-      this.enableDelete = false;
-    }
-  }
-
-  deleteStudents() {
+  onDeleteStudents() {
     let res = this.selectedStudents;
     for (let i = 0; i < res.length; i++) {
       this.studentService.deleteStudent(res[i].id).subscribe(() => {
@@ -293,5 +235,46 @@ export class StudentHomeComponent implements OnInit {
 
   onRowUnselect(event) {
     this.enableDeletion();
+  }
+
+  enableDeletion(): void {
+    if (this.selectedStudents.length > 0) {
+      this.displayDelete = true;
+    } else {
+      this.displayDelete = false;
+    }
+  }
+
+  cancelStudent() {
+    this.displayStudentModal = false;
+    this.studentForm.reset();
+  }
+
+  displayAddStudentModal() {
+    this.displayStudentModal = true;
+    this.displayStudentImage = false;
+    this.displayAdd = true;
+    this.displayUpdate = false;
+    this.displayStudentHeader = 'Add Student';
+  }
+
+  ageCalculator(dateOfBirth: string) {
+    let age = 0;
+    if (dateOfBirth) {
+      const convertAge = new Date(dateOfBirth);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
+      return age;
+    }
+    return age;
+  }
+
+  getTeacherByIds(teacherIDs: string[]): string[] {
+    let teachers: string[] = [];
+    for (let i = 0; i < teacherIDs.length; i++) {
+      let teachersFound = this.teachers.find((t) => t.id == teacherIDs[i]);
+      teachers.push(teachersFound.name);
+    }
+    return teachers;
   }
 }
