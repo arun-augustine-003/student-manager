@@ -42,10 +42,10 @@
 ) {
   background-color: $normal-bg-color;
   color: $text-color;
-  border: 3px solid $normal-outline-color;
+  border: 1px solid $normal-outline-color;
   &:hover {
     background-color: $new-bg-color;
     color: $text-color;
-    border: 2px solid $new-bg-color;
+    border: 1px solid $new-bg-color;
   }
 }

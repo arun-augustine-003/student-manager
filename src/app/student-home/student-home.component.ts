@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from '../student';
-import { StudentView } from '../studentView';
-import { Teacher } from '../teacher';
-import { Rating } from '../rating';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { IStudent } from '../core/interfaces/index';
+import { IStudentView } from '../core/interfaces/index';
+import { ITeacher } from '../core/interfaces/index';
+import { IRating } from '../core/interfaces/index';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { StudentService } from '../studentService';
-import { DataService } from '../data.service';
+import { StudentService } from '../core/service/studentService';
+import { DataService } from '../core/service/data.service';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 
@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './student-home.component.html',
   styleUrls: ['./student-home.component.scss'],
   providers: [MessageService],
+  encapsulation: ViewEncapsulation.None,
 })
 export class StudentHomeComponent implements OnInit {
   displayAdd!: boolean;
@@ -29,14 +30,14 @@ export class StudentHomeComponent implements OnInit {
 
   studentForm: FormGroup;
 
-  students: StudentView[];
-  teachers: Teacher[];
-  ratings: Rating[];
+  students: IStudentView[];
+  teachers: ITeacher[];
+  ratings: IRating[];
 
-  selectedStudent: StudentView;
-  selectedStudents: StudentView[] = [];
-  selectedTeachers: Teacher[];
-  selectedRating: Rating[];
+  selectedStudent: IStudentView;
+  selectedStudents: IStudentView[] = [];
+
+  submitButtonTitle: string = 'Add Student';
 
   constructor(
     private fb: FormBuilder,
@@ -52,10 +53,9 @@ export class StudentHomeComponent implements OnInit {
       { name: 'D' },
       { name: 'E' },
     ];
+    let arr = document.body.classList;
   }
-
   ngOnInit() {
-    document.body.style.backgroundColor = 'white';
     this.initHeader();
     this.fetchTeachers();
     this.fetchData();
@@ -75,7 +75,7 @@ export class StudentHomeComponent implements OnInit {
 
   fetchData() {
     this.studentService.getStudents().subscribe((res) => {
-      let tempStudent: StudentView[] = [];
+      let tempStudent: IStudentView[] = [];
       for (let i = 0; i < res.length; i++) {
         tempStudent.push({
           ...res[i],
@@ -106,9 +106,14 @@ export class StudentHomeComponent implements OnInit {
     });
   }
 
+  onSubmitForm() {
+    if (!!this.selectedStudent) this.onUpdateStudent();
+    else this.onAddStudent();
+  }
+
   onAddStudent() {
     if (this.studentForm.valid) {
-      let student: Student = {
+      let student: IStudent = {
         id: this.studentForm.value.length + 1,
         name: this.studentForm.value.name,
         surname: this.studentForm.value.surname,
@@ -148,13 +153,10 @@ export class StudentHomeComponent implements OnInit {
     }
   }
 
-  onClickStudent(student: StudentView) {
+  onClickStudent(student: IStudentView) {
     this.selectedStudent = student;
-    this.displayStudentModal =
-      this.displayStudentImage =
-      this.displayUpdate =
-        true;
-    this.displayAdd = false;
+    this.displayStudentModal = this.displayStudentImage = true;
+    this.submitButtonTitle = 'Save';
     this.imgSrc = student.imgUrl;
     this.displayStudentHeader = student.fullname;
 
@@ -176,7 +178,7 @@ export class StudentHomeComponent implements OnInit {
 
   onUpdateStudent() {
     const formValue = this.studentForm.value;
-    let student: Student = {
+    let student: IStudent = {
       id: this.selectedStudent.id,
       imgUrl: this.selectedStudent.imgUrl,
       name: formValue.name,
@@ -199,6 +201,7 @@ export class StudentHomeComponent implements OnInit {
           detail: student.name.concat(' ', student.surname),
         });
         this.studentForm.reset();
+        this.selectedStudent = null;
         this.fetchData();
       },
       (err) => {
@@ -253,8 +256,7 @@ export class StudentHomeComponent implements OnInit {
   displayAddStudentModal() {
     this.displayStudentModal = true;
     this.displayStudentImage = false;
-    this.displayAdd = true;
-    this.displayUpdate = false;
+    this.submitButtonTitle = 'Add Student';
     this.displayStudentHeader = 'Add Student';
   }
 
@@ -270,11 +272,11 @@ export class StudentHomeComponent implements OnInit {
   }
 
   getTeacherByIds(teacherIDs: string[]): string[] {
-    let teachers: string[] = [];
+    let teachersList: string[] = [];
     for (let i = 0; i < teacherIDs.length; i++) {
       let teachersFound = this.teachers.find((t) => t.id == teacherIDs[i]);
-      teachers.push(teachersFound.name);
+      teachersList.push(teachersFound.name);
     }
-    return teachers;
+    return teachersList;
   }
 }

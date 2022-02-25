@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { Student } from './student';
+import { IStudent } from './../interfaces/index';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +35,7 @@ export class StudentService {
     );
   }
 
-  addStudent(data: Student) {
+  addStudent(data: IStudent) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export class StudentService {
       .pipe(catchError(this.handleError));
   }
 
-  updateStudent(data: Student) {
+  updateStudent(data: IStudent) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

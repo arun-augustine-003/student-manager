@@ -1,4 +1,4 @@
-export interface StudentView {
+export interface IStudentView {
   id: number;
   name: string;
   surname: string;

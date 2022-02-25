@@ -1,0 +1,12 @@
+@import "./../variables";
+
+$dark-value-map: (
+  name: "dark-theme",
+  text-color: $white-primary,
+  background-menu-color: $dark-theme-menu,
+  background-color: $dark-theme-bg,
+  button-color: $dark-theme-btn,
+  button-hover-color: $dark-theme-btn-hvr,
+  button-text-color: $white-primary,
+  body-bg-color: $black-primary,
+);

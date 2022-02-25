@@ -1,5 +1,6 @@
-@import "./../variables";
-@import "./../mixins";
+@import "./../styles/variables";
+@import "./../styles/mixins";
+@import "./../../styles.scss";
 
 .header {
   @include flexcenter-row();
@@ -14,99 +15,73 @@
     }
   }
   .add-btn {
-    padding: 12px 75px;
+    padding: 6px 75px;
     @include color-swapper($blue-primary, $white-primary, $blue-dark);
     i {
-      @include color-swapper($blue-primary, $white-primary, $blue-dark);
+      padding: 7px;
+      margin: 5px;
+      border-radius: 50%;
     }
   }
   .delete-btn {
-    padding: 12px 75px;
+    padding: 6px 75px;
     @include color-swapper($orange-primary, $white-primary, $orange-dark);
     i {
-      @include color-swapper($orange-primary, $white-primary, $orange-dark);
+      padding: 7px;
+      margin: 5px;
+      border-radius: 50%;
     }
   }
 }
+
 :host ::ng-deep .p-dialog-header-close-icon {
   display: none;
 }
-.dialog-header-pic {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  @include margin-setter(-10px, null, 11px, null);
-}
-.studentForm1 {
+.dialog-header {
   @include flexcenter-row();
-  justify-content: flex-start;
-  .form-group {
-    @include margin-setter(null, null, null, 4%);
-    > input,
-    div > input {
-      width: 100%;
-    }
-    > label,
-    div > label {
-      @include font-styler("Roboto", 14px, 400, $black-text);
-    }
-    .dateOfBirth {
-      @include flexcenter-column();
-      align-items: flex-start;
+  margin-left: 220%;
+  white-space: nowrap;
+}
+.dialog-header-pic {
+  > img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    @include margin-setter(-10px, null, 11px, null);
+  }
+}
 
-      .p-calendar-w-btn.p-inputtext {
-        width: 100%;
-      }
-    }
-    .finishReview {
-      @include flexcenter-column();
-      align-items: flex-start;
-      &-1 {
-        @include flexcenter-row();
-        justify-content: space-between;
-        .finishReviewNo {
-          margin-left: 67px;
-        }
-      }
-    }
-    .teachers {
-      @include flexcenter-column();
-      align-items: flex-start;
-    }
-    .ratings {
-      @include flexcenter-column();
-      align-items: flex-start;
-    }
-  }
-  .form-group-2 {
-    @include margin-setter(null, null, null, 11%);
-    > input {
-      width: 120%;
-    }
-  }
-}
-:host ::ng-deep .p-inputtext.p-component {
-  width: 260px;
-}
+:host ::ng-deep .p-calendar,
 :host ::ng-deep .p-dropdown.p-component,
 :host ::ng-deep .p-multiselect.p-component {
-  width: 300px;
+  width: 100%;
 }
-:host ::ng-deep .p-dialog-footer {
-  > .add-btn-2 {
-    margin-left: -5%;
+.p-multiselect-panel {
+  position: absolute;
+  width: 10%;
+}
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 0 1.5rem 2rem 1.5rem;
+  padding-bottom: 0rem;
+}
+:host ::ng-deep .p-dialog .p-dialog-header {
+  border-bottom: 1px solid $grey-hr-underline;
+}
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  padding: 1rem 0 0 1.5rem;
+  border-top: 1px solid $grey-hr-underline;
+}
+// ***** NEW BOOTSRAP ***********
+.row > div {
+  margin-bottom: 20px;
+  > label {
+    @include font-styler("Roboto", 14px, 400, $black-text);
   }
-  padding: 30px;
-  padding-top: 10px;
-  @include flexcenter-row();
-  justify-content: space-evenly;
 }
 .add-btn-2 {
-  padding: 12px 100px;
   @include color-swapper($blue-primary, $white-primary, $blue-dark);
 }
 .cancel-btn {
-  padding: 12px 100px;
   @include color-swapper-cancel-button(
     $white-primary,
     $grey-text-cancel,
@@ -114,10 +89,17 @@
     $white-bg
   );
 }
+.finishReview {
+  &-1 {
+    .finishReviewNo {
+      margin-left: 31px;
+    }
+  }
+}
 .studentViewTable {
   border-collapse: separate;
   td {
-    border: 1px solid #fff;
+    border: 1px solid $white-primary;
     @include font-styler("Roboto", 16px, 500, $text-dark);
     padding: 0.9rem 1rem;
   }
@@ -156,4 +138,102 @@
     -moz-background-clip: padding;
     background-clip: padding-box;
   }
+}
+
+/***********THEMING******************/
+
+@mixin set-theme($map) {
+  .add-btn,
+  .delete-btn,
+  .add-btn-2 {
+    background-color: map-get-value($map, button-color);
+    color: map-get-value($map, button-text-color);
+    border: 2px solid map-get-value($map, button-color);
+    &:hover {
+      cursor: pointer;
+      background-color: map-get-value($map, button-hover-color);
+      border: 2px solid map-get-value($map, button-hover-color);
+    }
+    i {
+      background-color: map-get-value($map, button-color);
+      color: map-get-value($map, button-text-color);
+      // &:hover {
+      //   background-color: map-get-value($map, button-hover-color);
+      // }
+    }
+  }
+}
+
+@mixin set-theme-dark($map) {
+  .studentViewName {
+    h1 {
+      color: map-get-value($map, text-color);
+    }
+  }
+  .header-title {
+    h1 {
+      color: map-get-value($map, text-color);
+    }
+  }
+  .add-btn,
+  .delete-btn,
+  .add-btn-2 {
+    background-color: map-get-value($map, button-color);
+    color: map-get-value($map, button-text-color);
+    border: 2px solid map-get-value($map, button-color);
+    &:hover {
+      cursor: pointer;
+      background-color: map-get-value($map, button-hover-color);
+      border: 2px solid map-get-value($map, button-color);
+    }
+    i {
+      background-color: map-get-value($map, button-color);
+      color: map-get-value($map, button-text-color);
+    }
+  }
+  .card {
+    border: 1px solid map-get-value($map, background-color);
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    border: 1px solid map-get-value($map, background-color);
+    background: map-get-value($map, background-menu-color);
+    color: map-get-value($map, text-color);
+  }
+  .p-datatable .p-datatable-tbody > tr {
+    background: map-get-value($map, background-color);
+    color: map-get-value($map, text-color);
+    > td {
+      color: map-get-value($map, text-color);
+      border: 1px solid map-get-value($map, background-color);
+    }
+  }
+  .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+    background: map-get-value($map, background-menu-color);
+  }
+  .row > div > label {
+    color: map-get-value($map, text-color);
+  }
+  .p-dialog {
+    .p-dialog-header,
+    .p-dialog-content,
+    .p-dialog-footer {
+      background: map-get-value($map, background-menu-color);
+      color: map-get-value($map, text-color);
+    }
+  }
+}
+.red-theme {
+  @include set-theme($red-value-map);
+}
+.blue-theme {
+  @include set-theme($blue-value-map);
+}
+.green-theme {
+  @include set-theme($green-value-map);
+}
+.dark-theme {
+  @include set-theme-dark($dark-value-map);
+}
+.default-theme {
+  @include set-theme($default-value-map);
 }

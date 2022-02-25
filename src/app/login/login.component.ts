@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   Validators,
   FormControl,
@@ -6,11 +12,13 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
+import { DataService } from '../core/service/data.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -22,7 +30,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    document.body.style.backgroundColor = '#363d93';
     this.loginForm = this.fb.group({
       email: new FormControl('', Validators.required),
       password: new FormControl(

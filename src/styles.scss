@@ -1,9 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./../../MyStudentManager/src/app/variables";
+@import "./../../MyStudentManager/src/app/styles/variables";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+}
+/* You can add global styles to this file, and also import other style files */
+
+@import "./../../MyStudentManager/src/app/styles/theme/default.scss";
+@import "./../../MyStudentManager/src/app/styles/theme/dark.scss";
+@import "./../../MyStudentManager/src/app/styles/theme/red.scss";
+@import "./../../MyStudentManager/src/app/styles/theme/blue.scss";
+@import "./../../MyStudentManager/src/app/styles/theme/green.scss";
+
+@function map-get-value($map, $key) {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  } @else {
+    @error "ERROR: Specified key #{$key} does not exist in the mapping #{map-get($map,name)}";
+  }
+}
+.dark-theme {
+  background-color: map-get-value($dark-value-map, body-bg-color);
 }

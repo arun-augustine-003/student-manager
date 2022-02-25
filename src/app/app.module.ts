@@ -33,7 +33,7 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentHomeComponent } from './student-home/student-home.component';
 import { HeaderComponent } from './header/header.component';
-import { DataService } from './data.service';
+import { DataService } from './core/service/data.service';
 
 @NgModule({
   declarations: [

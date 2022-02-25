@@ -4,6 +4,14 @@
     <h1>Student Management</h1>
   </div>
   <div *ngIf="isProfileVisible" class="main-header-user-main">
+    <div class="main-header-user-main-theming">
+      <p-dropdown
+        [options]="themes"
+        [(ngModel)]="selectedTheme"
+        optionLabel="name"
+        (onChange)="onChangeTheme($event)"
+      ></p-dropdown>
+    </div>
     <div class="main-header-user-main-logout">
       <i class="fas fa-power-off" routerLink="/login"></i>
       <p class="main-header-user-main-logout-text">Logout</p>

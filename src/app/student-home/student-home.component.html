@@ -7,7 +7,7 @@
       *ngIf="!displayDelete"
       pButton
       type="submit"
-      class="ui-button-raised ui-button-primary add-btn"
+      class="ui-button-raised add-btn"
       (click)="displayAddStudentModal()"
     >
       <i class="fal fa-plus"></i>
@@ -18,7 +18,7 @@
       *ngIf="displayDelete"
       pButton
       type="submit"
-      class="ui-button-raised ui-button-primary delete-btn"
+      class="ui-button-raised delete-btn"
       (click)="onDeleteStudents()"
     >
       <i class="fas fa-trash"></i>
@@ -71,271 +71,285 @@
 <p-dialog
   [(visible)]="displayStudentModal"
   [modal]="true"
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
   [draggable]="false"
   [resizable]="false"
 >
   <p-header>
-    <img
-      *ngIf="displayStudentImage"
-      src="{{ imgSrc }}"
-      class="dialog-header-pic"
-    />
-    {{ displayStudentHeader }}
+    <div *ngIf="!displayStudentImage" class="dialog-header">
+      {{ displayStudentHeader }}
+    </div>
+    <div *ngIf="displayStudentImage" class="dialog-header-pic">
+      <img src="{{ imgSrc }}" />
+      {{ displayStudentHeader }}
+    </div>
   </p-header>
-  <br />
-  <form [formGroup]="studentForm" class="studentForm1">
-    <div class="form-group form-group-1">
-      <label for="float-input">Name</label>
-      <input
-        id="float-input"
-        type="text"
-        class="form-control"
-        pInputText
-        aria-describedby="nameHelp"
-        formControlName="name"
-      />
-      <small
-        id="float-input"
-        class="p-error"
-        severity="error"
-        *ngIf="
-          !studentForm.controls['name'].valid &&
-          studentForm.controls['name'].dirty
-        "
-        >Valid Name is Required</small
-      >
-      <br />
-      <div class="dateOfBirth">
-        <label for="dateformat">Date of Birth</label>
-        <p-calendar
-          formControlName="dateOfBirth"
-          dateFormat="yy-mm-dd"
-          [showIcon]="true"
-          inputId="dateformat"
-          [maxDate]="maxDate"
-        ></p-calendar>
-        <small
-          id="dateformat"
-          class="p-error"
-          severity="error"
-          *ngIf="
-            !studentForm.controls['dateOfBirth'].valid &&
-            studentForm.controls['dateOfBirth'].dirty
-          "
-          >Valid Date of Birth is Required</small
-        >
-      </div>
-      <br />
-      <label for="float-input">Phone</label>
-      <input
-        id="float-input"
-        type="text"
-        class="form-control"
-        pInputText
-        aria-describedby="phoneHelp"
-        formControlName="phone"
-      />
-      <small
-        id="float-input"
-        class="p-error"
-        severity="error"
-        *ngIf="
-          !studentForm.controls['phone'].valid &&
-          studentForm.controls['phone'].dirty
-        "
-        >Valid Phone is Required</small
-      ><br />
-      <div class="teachers">
-        <label for="teachers">Teacher</label>
-        <p-multiSelect
-          [options]="teachers"
-          formControlName="teachers"
-          optionLabel="name"
-          optionValue="id"
-          [virtualScroll]="true"
-          itemSize="30"
-        ></p-multiSelect>
-        <small
-          id="float-input"
-          class="p-error"
-          severity="error"
-          *ngIf="
-            !studentForm.controls['teachers'].valid &&
-            studentForm.controls['teachers'].dirty
-          "
-          >Valid Teacher is Required</small
-        >
-      </div>
-      <br />
-      <div class="ratings">
-        <label for="ratings">Rating</label>
-        <p-dropdown
-          [options]="ratings"
-          formControlName="rating"
-          optionLabel="name"
-          optionValue="name"
-          [virtualScroll]="true"
-          itemSize="30"
-          inputId="rating"
-        ></p-dropdown>
-        <small
-          id="rating"
-          class="p-error"
-          severity="error"
-          *ngIf="
-            !studentForm.controls['rating'].valid &&
-            studentForm.controls['rating'].dirty
-          "
-          >Valid Date of Birth is Required</small
-        >
+
+  <!-- ***** NEW BOOTSRAP *********** -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="studentForm" class="studentForm1">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label for="float-input">Name</label>
+              <input
+                id="float-input"
+                type="text"
+                class="form-control"
+                pInputText
+                aria-describedby="nameHelp"
+                formControlName="name"
+              />
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['name'].valid &&
+                  studentForm.controls['name'].dirty
+                "
+                >Valid Name is Required</small
+              >
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label for="float-input">Surname</label>
+              <input
+                id="float-input"
+                type="text"
+                class="form-control"
+                pInputText
+                aria-describedby="surnameHelp"
+                formControlName="surname"
+              />
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['surname'].valid &&
+                  studentForm.controls['surname'].dirty
+                "
+                >Valid Surname is Required</small
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label for="dateformat">Date of Birth</label>
+              <p-calendar
+                formControlName="dateOfBirth"
+                dateFormat="yy-mm-dd"
+                [showIcon]="true"
+                inputId="dateformat"
+                [maxDate]="maxDate"
+                appendTo="body"
+              ></p-calendar>
+              <small
+                id="dateformat"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['dateOfBirth'].valid &&
+                  studentForm.controls['dateOfBirth'].dirty
+                "
+                >Valid Date of Birth is Required</small
+              >
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label for="float-input">Email</label>
+              <input
+                id="float-input"
+                type="email"
+                class="form-control"
+                pInputText
+                aria-describedby="emailHelp"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                formControlName="email"
+              />
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['email'].valid &&
+                  studentForm.controls['email'].dirty
+                "
+                >Valid Email is Required</small
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label for="float-input">Phone</label>
+              <input
+                id="float-input"
+                type="text"
+                class="form-control"
+                pInputText
+                aria-describedby="phoneHelp"
+                formControlName="phone"
+              />
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['phone'].valid &&
+                  studentForm.controls['phone'].dirty
+                "
+                >Valid Phone is Required</small
+              >
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label for="float-input">Address</label>
+              <input
+                id="float-input"
+                type="text"
+                class="form-control"
+                pInputText
+                aria-describedby="addressHelp"
+                formControlName="address"
+              />
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['address'].valid &&
+                  studentForm.controls['address'].dirty
+                "
+                >Valid Address is Required</small
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label for="teachers">Teacher</label>
+              <p-multiSelect
+                [options]="teachers"
+                formControlName="teachers"
+                optionLabel="name"
+                optionValue="id"
+                [virtualScroll]="true"
+                itemSize="30"
+                appendTo="body"
+              ></p-multiSelect>
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['teachers'].valid &&
+                  studentForm.controls['teachers'].dirty
+                "
+                >Valid Teacher is Required</small
+              >
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label for="float-input">Specialization</label>
+              <input
+                id="float-input"
+                type="text"
+                class="form-control"
+                pInputText
+                aria-describedby="specializationHelp"
+                formControlName="specialization"
+              />
+              <small
+                id="float-input"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['specialization'].valid &&
+                  studentForm.controls['specialization'].dirty
+                "
+                >Valid Specialization is Required</small
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label for="ratings">Rating</label>
+              <p-dropdown
+                [options]="ratings"
+                formControlName="rating"
+                optionLabel="name"
+                optionValue="name"
+                [virtualScroll]="true"
+                itemSize="30"
+                inputId="rating"
+                appendTo="body"
+              ></p-dropdown>
+              <small
+                id="rating"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['rating'].valid &&
+                  studentForm.controls['rating'].dirty
+                "
+                >Valid Date of Birth is Required</small
+              >
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label for="finishReview">Finish Review</label>
+              <div class="finishReview-1">
+                <p-radioButton
+                  name="finishReview"
+                  inputId="finishReview"
+                  value="Yes"
+                  label="Yes"
+                  formControlName="finishReview"
+                  class="finishReviewYes"
+                ></p-radioButton>
+
+                <p-radioButton
+                  name="finishReview"
+                  inputId="finishReview"
+                  value="No"
+                  label="No"
+                  formControlName="finishReview"
+                  class="finishReviewNo"
+                ></p-radioButton>
+              </div>
+              <small
+                id="finishReview"
+                class="p-error"
+                severity="error"
+                *ngIf="
+                  !studentForm.controls['finishReview'].valid &&
+                  studentForm.controls['finishReview'].dirty
+                "
+                >Valid Review is Required</small
+              >
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="form-group form-group-2">
-      <label for="float-input">Surname</label>
-      <input
-        id="float-input"
-        type="text"
-        class="form-control"
-        pInputText
-        aria-describedby="surnameHelp"
-        formControlName="surname"
-      />
-      <small
-        id="float-input"
-        class="p-error"
-        severity="error"
-        *ngIf="
-          !studentForm.controls['surname'].valid &&
-          studentForm.controls['surname'].dirty
-        "
-        >Valid Surname is Required</small
-      >
-      <br />
-      <label for="float-input">Email</label>
-      <input
-        id="float-input"
-        type="email"
-        class="form-control"
-        pInputText
-        aria-describedby="emailHelp"
-        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-        formControlName="email"
-      />
-      <small
-        id="float-input"
-        class="p-error"
-        severity="error"
-        *ngIf="
-          !studentForm.controls['email'].valid &&
-          studentForm.controls['email'].dirty
-        "
-        >Valid Email is Required</small
-      >
-      <br />
-      <label for="float-input">Address</label>
-      <input
-        id="float-input"
-        type="text"
-        class="form-control"
-        pInputText
-        aria-describedby="addressHelp"
-        formControlName="address"
-      />
-      <small
-        id="float-input"
-        class="p-error"
-        severity="error"
-        *ngIf="
-          !studentForm.controls['address'].valid &&
-          studentForm.controls['address'].dirty
-        "
-        >Valid Address is Required</small
-      >
-      <br />
-      <label for="float-input">Specialization</label>
-      <input
-        id="float-input"
-        type="text"
-        class="form-control"
-        pInputText
-        aria-describedby="specializationHelp"
-        formControlName="specialization"
-      />
-      <small
-        id="float-input"
-        class="p-error"
-        severity="error"
-        *ngIf="
-          !studentForm.controls['specialization'].valid &&
-          studentForm.controls['specialization'].dirty
-        "
-        >Valid Specialization is Required</small
-      >
-      <br />
-      <div class="finishReview">
-        <label for="finishReview">Finish Review</label>
-        <div class="finishReview-1">
-          <p-radioButton
-            name="finishReview"
-            inputId="finishReview"
-            value="Yes"
-            label="Yes"
-            formControlName="finishReview"
-            class="finishReviewYes"
-          ></p-radioButton>
+  </div>
 
-          <p-radioButton
-            name="finishReview"
-            inputId="finishReview"
-            value="No"
-            label="No"
-            formControlName="finishReview"
-            class="finishReviewNo"
-          ></p-radioButton>
-        </div>
-        <small
-          id="finishReview"
-          class="p-error"
-          severity="error"
-          *ngIf="
-            !studentForm.controls['finishReview'].valid &&
-            studentForm.controls['finishReview'].dirty
-          "
-          >Valid Review is Required</small
-        >
-      </div>
-      <br />
-    </div>
-  </form>
-
-  <br />
   <ng-template pTemplate="footer">
-    <button
-      pButton
-      type="button"
-      *ngIf="displayAdd"
-      label="Add Student"
-      [disabled]="!studentForm.valid"
-      (click)="onAddStudent()"
-      class="ui-button-raised ui-button-primary add-btn-2"
-    ></button>
-    <button
-      pButton
-      type="button"
-      *ngIf="displayUpdate"
-      label="Save"
-      [disabled]="!studentForm.valid"
-      (click)="onUpdateStudent()"
-      class="ui-button-raised ui-button-primary add-btn-2"
-    ></button>
-    <button
-      pButton
-      type="submit"
-      label="Cancel"
-      (click)="cancelStudent()"
-      class="ui-button-raised ui-button-primary cancel-btn"
-    ></button>
+    <div class="row pl-2 pr-6 align-bottom">
+      <div class="col-6">
+        <button
+          pButton
+          type="button"
+          [label]="submitButtonTitle"
+          [disabled]="!studentForm.valid"
+          (click)="onSubmitForm()"
+          class="ui-button-raised w-100 add-btn-2"
+        ></button>
+      </div>
+      <div class="col-6">
+        <button
+          pButton
+          type="submit"
+          label="Cancel"
+          (click)="cancelStudent()"
+          class="ui-button-raised w-100 cancel-btn"
+        ></button>
+      </div>
+    </div>
   </ng-template>
 </p-dialog>

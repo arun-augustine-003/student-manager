@@ -1,0 +1,10 @@
+@import "./../variables";
+$red-value-map: (
+  name: "red-theme",
+  text-color: $white-primary,
+  background-color: $red-primary,
+  button-color: $red-primary,
+  button-hover-color: $orange-primary,
+  button-text-color: $white-primary,
+  body-bg-color: $white-primary,
+);

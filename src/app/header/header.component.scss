@@ -1,5 +1,6 @@
-@import "./../variables";
-@import "./../mixins";
+@import "./../styles/variables";
+@import "./../styles/mixins";
+@import "./../../styles.scss";
 
 .main-header {
   @include flexcenter-row();
@@ -7,7 +8,9 @@
   align-items: flex-start;
   background-color: $blue-primary;
   color: $white-primary;
-  padding: 13px 40px;
+  padding: 13px 20px;
+  flex: 1 0 auto;
+
   &-logo {
     > * {
       flex: 1 1 50%;
@@ -32,9 +35,10 @@
   &-user-main {
     @include flexcenter-row();
     @include margin-setter(null, null, null, null);
+
     &-logout {
       @include flexcenter-row();
-      @include margin-setter(null, null, null, -50px);
+      @include margin-setter(null, null, null, 20px);
       i {
         cursor: pointer;
         @include font-styler(null, 24px, 700, $white-primary);
@@ -76,4 +80,40 @@
       }
     }
   }
+}
+
+/***********THEMING******************/
+
+@mixin set-theme($map) {
+  .main-header {
+    background-color: map-get-value($map, background-color);
+    color: text-color;
+    &-logo {
+      background-color: map-get-value($map, background-color);
+    }
+  }
+}
+@mixin set-theme-dark($map) {
+  .main-header {
+    background-color: map-get-value($map, background-menu-color);
+    color: text-color;
+    &-logo {
+      background-color: map-get-value($map, background-menu-color);
+    }
+  }
+}
+.red-theme {
+  @include set-theme($red-value-map);
+}
+.blue-theme {
+  @include set-theme($blue-value-map);
+}
+.green-theme {
+  @include set-theme($green-value-map);
+}
+.dark-theme {
+  @include set-theme-dark($dark-value-map);
+}
+.default-theme {
+  @include set-theme($default-value-map);
 }
