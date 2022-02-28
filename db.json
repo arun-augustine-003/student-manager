@@ -1,6 +1,39 @@
 {
   "students": [
     {
+      "id": 1,
+      "imgUrl": "assets/student-1.jpg",
+      "name": "Katie",
+      "surname": "Grand",
+      "dateOfBirth": "2004-06-13",
+      "email": "katie.grand@gmail.com",
+      "phone": "917. 929. 934. 54",
+      "address": "71 Stanley Road London W64 5YU",
+      "teacherIDs": [
+        "T1",
+        "T3"
+      ],
+      "specialization": "Marketing",
+      "rating": "A",
+      "finishReview": "Yes"
+    },
+    {
+      "id": 2,
+      "imgUrl": "assets/student-2.jpg",
+      "name": "Peter",
+      "surname": "Parker",
+      "dateOfBirth": "2005-06-13",
+      "email": "katie.grand@gmail.com",
+      "phone": "917. 929. 934. 54",
+      "address": "71 Stanley Road London W64 5YU",
+      "teacherIDs": [
+        "T7"
+      ],
+      "specialization": "Graphic Designer2",
+      "rating": "B",
+      "finishReview": "No"
+    },
+    {
       "id": 3,
       "imgUrl": "assets/student-3.jpg",
       "name": "Campbell",

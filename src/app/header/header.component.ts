@@ -21,7 +21,7 @@ export class HeaderComponent {
       { name: 'Green', id: 'green-theme' },
       { name: 'Dark', id: 'dark-theme' },
     ];
-    this.selectedTheme = { name: 'Dark', id: 'dark-theme' };
+    this.selectedTheme = { name: 'Default', id: 'default-theme' };
   }
 
   ngOnInit() {
