@@ -78,7 +78,7 @@
     @include font-styler("Roboto", 14px, 400, $black-text);
   }
 }
-.add-btn-2 {
+.add-btn-modal {
   @include color-swapper($blue-primary, $white-primary, $blue-dark);
 }
 .cancel-btn {
@@ -145,7 +145,7 @@
 @mixin set-theme($map) {
   .add-btn,
   .delete-btn,
-  .add-btn-2 {
+  .add-btn-modal {
     background-color: map-get-value($map, button-color);
     color: map-get-value($map, button-text-color);
     border: 2px solid map-get-value($map, button-color);
@@ -185,7 +185,7 @@
   }
   .add-btn,
   .delete-btn,
-  .add-btn-2 {
+  .add-btn-modal {
     background-color: map-get-value($map, button-color);
     color: map-get-value($map, button-text-color);
     border: 2px solid map-get-value($map, button-color);
